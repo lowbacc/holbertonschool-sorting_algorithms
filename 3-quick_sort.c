@@ -1,6 +1,21 @@
 #include "sort.h"
 
 /**
+ * swap - Swaps two integers
+ * @a: First integer
+ * @b: Second integer
+ * Return: void
+ */
+void swap(int *a, int *b)
+{
+	int temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+/**
  * partition_array - Divides the array into two parts
  * @array: Array
  * @start: Start of the index
@@ -10,32 +25,29 @@
  */
 int partition_array(int *array, int start, int end, size_t size)
 {
-	int pivot = array[end];
-	int i = start - 1;
-	int tmp;
+	int pivot, i, j;
 
-	for (int j = start; j < end; j++)
+	pivot = array[end];
+	i = start;
+
+	for (j = start; j < end; j++)
 	{
 		if (array[j] <= pivot)
 		{
-			i++;
 			if (i != j)
 			{
-				tmp = array[i];
-				array[i] = array[j];
-				array[j] = tmp;
+				swap(&array[i], &array[j]);
 				print_array(array, size);
 			}
+			i++;
 		}
 	}
-	if (array[i + 1] != array[end])
+	if (i != end)
 	{
-		tmp = array[i + 1];
-		array[i + 1] = array[end];
-		array[end] = tmp;
+		swap(&array[i], &array[end]);
 		print_array(array, size);
 	}
-	return (i + 1);
+	return (i);
 }
 
 /**
@@ -44,6 +56,7 @@ int partition_array(int *array, int start, int end, size_t size)
  * @start: Start of the index
  * @end: End of the index
  * @size: Size of the array
+ * Return: void
  */
 void quicksort_recursive(int *array, int start, int end, size_t size)
 {
@@ -64,6 +77,8 @@ void quicksort_recursive(int *array, int start, int end, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array && size > 1)
-		quicksort_recursive(array, 0, size - 1, size);
+	if (array == NULL || size < 2)
+		return;
+
+	quicksort_recursive(array, 0, size - 1, size);
 }
