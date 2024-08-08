@@ -11,7 +11,7 @@
 int partition_array(int *array, int start, int end, size_t size)
 {
 	int pivot = array[end];
-	int i = start -1;
+	int i = start - 1;
 	int tmp;
 
 	for (int j = start; j < end; j++)
